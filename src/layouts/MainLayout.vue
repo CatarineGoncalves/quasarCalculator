@@ -1,106 +1,68 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+  <div class="row q-mt-xl">
+    <div class="col-2"></div>
+    <div class="col" style="width: 200px;">
+      <h3 class="text-center">Calculadora</h3>
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+      <q-input v-model="displayCalculator" readonly class="q-mb-md text-h5 text-center" outlined style="font-size: 24px" />
 
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
+      <div class="flex justify-center">
+        <q-btn class="q-ma-sm" size="20px" round color="orange" @click="clear">C</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('%')">%</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('(')">√</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('/')">÷</q-btn>
+      </div>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+      <div class="flex justify-center">
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('9')">9</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('8')">8</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('7')">7</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('*')">×</q-btn>
+      </div>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
+      <div class="flex justify-center">
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('6')">6</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('5')">5</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('4')">4</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('-')">−</q-btn>
+      </div>
 
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+      <div class="flex justify-center">
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('3')">3</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('2')">2</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('1')">1</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color=""/>
+      </div>
+
+      <div class="flex justify-center">
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('0')">0</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('.')">.</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="secondary" @click="calculate('=')">=</q-btn>
+        <q-btn class="q-ma-sm" size="20px" color="green-4" @click="input('+')">+</q-btn>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
 
-defineOptions({
-  name: 'MainLayout'
-})
+const displayCalculator = ref('')
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
-
-const leftDrawerOpen = ref(false)
-
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value
+const clear = () => {
+  displayCalculator.value = ''
 }
+
+const input = (value) => {
+  displayCalculator.value =+ value;
+}
+
+const calculate = () => {
+  displayCalculator.value = String(eval(displayCalculator.value.replace('÷', '/').replace('×', '*')))
+}
+
+
+
+
 </script>
