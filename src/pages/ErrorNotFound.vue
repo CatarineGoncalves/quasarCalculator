@@ -1,5 +1,11 @@
 <template>
   <div>
-<h1>deu erroooo</h1>
+    Página não encontrada
   </div>
 </template>
+
+<script>
+export default {
+  name: 'ErrorNotFound'
+}
+</script>
