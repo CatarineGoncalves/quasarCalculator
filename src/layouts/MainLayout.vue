@@ -9,7 +9,7 @@
       <div class="flex justify-center">
         <q-btn class="q-ma-sm" size="20px" round color="orange" @click="clear">C</q-btn>
         <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('%')">%</q-btn>
-        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('(')">√</q-btn>
+        <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('(')">(</q-btn>
         <q-btn class="q-ma-sm" size="20px" round color="green-4" @click="input('/')">÷</q-btn>
       </div>
 
@@ -55,11 +55,13 @@ const clear = () => {
 }
 
 const input = (value) => {
-  displayCalculator.value =+ value;
+  displayCalculator.value += value;
 }
 
 const calculate = () => {
-  displayCalculator.value = String(eval(displayCalculator.value.replace('÷', '/').replace('×', '*')))
+    displayCalculator.value = String(eval(displayCalculator.value.replace('÷', '/').replace('×', '*')))
+
+
 }
 
 
